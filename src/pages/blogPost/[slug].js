@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import styles from '../../styles/blogpost.module.css'
 const fs = require('fs');
 
-const blog = ({File}) => {
+const Slug = ({File}) => {
     const [blog, setblog] = useState(File)
-
+    
     return (
         <div className={styles.container}>
             <div className={styles.blogwrapper}>
-                <h2 className={styles.title}>{blog.title}</h2>
-                <div><span>Author -</span> <span className={styles.author}>"{blog.author}"</span></div>
-                <p className={styles.content}>{blog.content}</p>
+                <h2 className={styles.title}>{blog && blog.title}</h2>
+                <div><span>Author -</span> <span className={styles.author}>"{blog && blog.author}"</span></div>
+                <p className={styles.content}>{blog && blog.content}</p>
             </div>
         </div>
     )
@@ -50,4 +50,4 @@ export async function getStaticProps(context) {
 //     };
 //   }
 
-export default blog
+export default Slug
