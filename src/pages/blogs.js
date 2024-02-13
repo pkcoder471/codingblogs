@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react'
 import styles from '../styles/blogs.module.css'
-const fs = require('fs');
 
 const blogs = ({allBlogs}) => {
 
@@ -24,31 +23,31 @@ const blogs = ({allBlogs}) => {
   
 }
 
-export async function getStaticProps() {
-  const allBlogs = [];
+// export async function getStaticProps() {
+//   const allBlogs = [];
 
-  const blogs = await fs.promises.readdir('public/Blogdata');
+//   const blogs = await fs.promises.readdir('public/Blogdata');
         
-  for (let i = 0; i < blogs.length; i++) {
-      let file = blogs[i];
-      const newFile = await fs.promises.readFile(`public/Blogdata/${file}`, 'utf-8')
-      const File = await JSON.parse(newFile);
-      allBlogs.push(File);
-  }
-  return {
-    props: {
-      allBlogs
-    },
-  };
-}
-// export async function getServerSideProps(context) {
-//   const response = await fetch('http://localhost:3000/api/blogs', {
-//         method: "GET", 
-//       });
-//   const data = await response.json();
+//   for (let i = 0; i < blogs.length; i++) {
+//       let file = blogs[i];
+//       const newFile = await fs.promises.readFile(`public/Blogdata/${file}`, 'utf-8')
+//       const File = await JSON.parse(newFile);
+//       allBlogs.push(File);
+//   }
 //   return {
-//     props: {data},
+//     props: {
+//       allBlogs
+//     },
 //   };
 // }
+export async function getServerSideProps(context) {
+  const response = await fetch('http://localhost:3000/api/blogs', {
+        method: "GET", 
+      });
+  const allBlogs = await response.json();
+  return {
+    props: {allBlogs},
+  };
+}
 
 export default blogs
