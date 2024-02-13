@@ -1,22 +1,12 @@
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/blogs.module.css'
+const fs = require('fs');
 
-const blogs = () => {
+const blogs = ({allBlogs}) => {
 
-  const [blogs, setblogs] = useState([]);
-
-  useEffect(() => {
-    const getAllBlogs = async () =>{
-      const response = await fetch('http://localhost:3000/api/blogs', {
-        method: "GET", 
-      });
-      const data = await response.json();
-      setblogs(data);
-    }
-    getAllBlogs();
-  }, [])
+  const [blogs, setblogs] = useState(allBlogs);
   
   return (
     <div className={styles.container}>
@@ -31,6 +21,34 @@ const blogs = () => {
       }
     </div>
   )
+  
 }
+
+export async function getStaticProps() {
+  const allBlogs = [];
+
+  const blogs = await fs.promises.readdir('public/Blogdata');
+        
+  for (let i = 0; i < blogs.length; i++) {
+      let file = blogs[i];
+      const newFile = await fs.promises.readFile(`public/Blogdata/${file}`, 'utf-8')
+      const File = await JSON.parse(newFile);
+      allBlogs.push(File);
+  }
+  return {
+    props: {
+      allBlogs
+    },
+  };
+}
+// export async function getServerSideProps(context) {
+//   const response = await fetch('http://localhost:3000/api/blogs', {
+//         method: "GET", 
+//       });
+//   const data = await response.json();
+//   return {
+//     props: {data},
+//   };
+// }
 
 export default blogs
