@@ -34,21 +34,21 @@ const contact = () => {
       <h1 className={styles.heading}>Contact Page</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label for="name" className="form-label">Name</label>
+          <label htmlFor="name" className="form-label">Name</label>
           <input type="text" className="form-control" id="name" name='name' value={credentials.name} onChange={HandleChange} />
         </div>
         <div className="mb-3">
-          <label for="exampleInputEmail1" className="form-label">Email address</label>
+          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
           <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' value={credentials.email} onChange={HandleChange} />
           <div id="emailHelp" className={styles.formText}>We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3">
-          <label for="phone" className="form-label">Phone</label>
+          <label htmlFor="phone" className="form-label">Phone</label>
           <input type="number" className="form-control" id="phone" name='phone' value={credentials.phone} onChange={HandleChange} />
         </div>
         <div className="mb-3">
-          <label for="exampleFormControlTextarea1" class={styles.formlabel}>Tell me About yourself</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name='text' value={credentials.text} onChange={HandleChange}></textarea>
+          <label htmlFor="exampleFormControlTextarea1" className={styles.formlabel}>Tell me About yourself</label>
+          <textarea className="form-control" id="exampleFormControlTextarea1" rows="5" name='text' value={credentials.text} onChange={HandleChange}></textarea>
         </div>
         <div className={styles.btn}>
           <button type="submit" className="btn">Submit</button>

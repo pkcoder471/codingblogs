@@ -3,11 +3,11 @@ const fs = require('fs')
 export default async function handler(req, res) {
 
     const allBlogs = [];
-
+    const count = req.query.count;
     try {
 
-        const blogs = await fs.promises.readdir('public/Blogdata');
-        
+        const data = await fs.promises.readdir('public/Blogdata');
+        const blogs = data.slice(0,count);
         for (let i = 0; i < blogs.length; i++) {
             let file = blogs[i];
             const newFile = await fs.promises.readFile(`public/Blogdata/${file}`, 'utf-8')
